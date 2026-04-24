@@ -1,0 +1,139 @@
+/* General reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+/* Container */
+div {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Header */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+form input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+form input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+form button {
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+form button:hover {
+  background-color: #2980b9;
+}
+
+/* Bills list */
+h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ecf0f1;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+li:hover {
+  background-color: #dfe6e9;
+}
+
+li button {
+  padding: 6px 10px;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+}
+
+li button:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  div {
+    padding: 20px;
+  }
+
+  form input, form button {
+    font-size: 14px;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  li button {
+    margin-top: 8px;
+  }
+}
