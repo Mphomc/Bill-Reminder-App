@@ -50,7 +50,7 @@ app.post('/bills', async (req, res) => {
   res.json({ message: 'Bill received!' });
 });
 
-cron.schedule('20 * * * *', async () => {
+cron.schedule('0 10 * * * *', async () => {
   console.log('Running bill check...');
 
   try {
