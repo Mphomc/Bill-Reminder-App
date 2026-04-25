@@ -34,7 +34,7 @@ function App() {
     console.log("Bill Data", newBill);
 
     // Connecting to server 
-    fetch("http://localhost:5000/bills", {
+    fetch("https://bill-reminder-app.onrender.com/bills", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
