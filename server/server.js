@@ -15,11 +15,10 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // 👇 EMAIL SETUP (the "delivery guy")
@@ -37,6 +36,26 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+// 👇 THIS IS THE PART YOU ADD (DB SETUP ROUTE)
+app.get('/init-db', async (req, res) => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS bills (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        email TEXT,
+        dueDate DATE
+      );
+    `);
+
+    res.send("Database table ready");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Error creating table");
+  }
+});
+
+
 // receive bills
 app.post('/bills', async (req, res) => {
   const { name, dueDate, email } = req.body;
@@ -50,7 +69,7 @@ app.post('/bills', async (req, res) => {
   res.json({ message: 'Bill received!' });
 });
 
-cron.schedule('0 10 * * * ', async () => {
+cron.schedule('0 10 * * *', async () => {
   console.log('Running bill check...');
 
   try {
