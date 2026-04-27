@@ -36,26 +36,6 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
-// 👇 THIS IS THE PART YOU ADD (DB SETUP ROUTE)
-app.get('/init-db', async (req, res) => {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS bills (
-        id SERIAL PRIMARY KEY,
-        name TEXT,
-        email TEXT,
-        dueDate DATE
-      );
-    `);
-
-    res.send("Database table ready");
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Error creating table");
-  }
-});
-
-
 // receive bills
 app.post('/bills', async (req, res) => {
   const { name, dueDate, email } = req.body;
