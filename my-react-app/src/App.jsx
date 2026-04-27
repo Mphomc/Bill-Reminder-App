@@ -34,14 +34,19 @@ function App() {
     console.log("Bill Data", newBill);
 
     // Connecting to server 
-    fetch("https://bill-reminder-app.onrender.com/bills", {
+    fetch(`${import.meta.env.VITE_API_URL}/bills`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify(newBill)
 })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Server error");
+    }
+    return response.json();
+  })
   .then(data => {
     console.log("Saved to backend:", data);
   })
