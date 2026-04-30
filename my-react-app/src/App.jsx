@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
   // Form state
@@ -7,54 +7,38 @@ function App() {
   const [dueDate, setDueDate] = useState("");
   const [email, setEmail] = useState("");
 
-  // Bills state
-  const [bills, setBills] = useState([]);
-
-  // Load bills from localStorage when app starts
-  useEffect(() => {
-    const savedBills = JSON.parse(localStorage.getItem("bills")) || [];
-    setBills(savedBills);
-  }, []);
-
-  // Save bills to localStorage whenever bills change
-  useEffect(() => {
-    localStorage.setItem("bills", JSON.stringify(bills));
-  }, [bills]);
-
   // Handle form submission
   const handleAddBill = (e) => {
     e.preventDefault();
 
     const newBill = {
-      id: Date.now(), // unique id
       name,
       dueDate,
       email,
     };
+
     console.log("Bill Data", newBill);
 
-    // Connecting to server 
+    // Send to backend
     fetch(`${import.meta.env.VITE_API_URL}/bills`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(newBill)
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("Server error");
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log("Saved to backend:", data);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-
-    setBills([...bills, newBill]);
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBill),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Server error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Saved to backend:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
     // Reset form
     setName("");
@@ -100,7 +84,6 @@ function App() {
 
         <button type="submit">Add Bill</button>
       </form>
-
     </div>
   );
 }
